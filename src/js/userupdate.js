@@ -1,0 +1,5 @@
+function callFunctions()
+{
+	loadUserToForm();
+	watchEvents();
+};

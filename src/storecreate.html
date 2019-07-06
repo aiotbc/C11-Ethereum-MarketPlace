@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>MarketPlace</title>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="css/app.css" rel='stylesheet' type='text/css'>
+    </head>
+  
+  <body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="index.html">MarketPlace</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="storelist.html">Stores</a></li>
+            <li><a href="storecreate.html">New Store</a></li>
+           </ul>
+        </div>
+      </div>
+    </nav>
+
+  <div class="container theme-showcase" role="main">
+    <div class="row">
+      <div class="col-md-8">
+        <div id="header"></div>
+        <table class="marketDetails">
+          <tr>
+            <td class="marketLabel"><label for="storename">Store name:</label></td>
+            <td><input type="text" id="storename" placeholder="Store Name"></input></td>
+          </tr>
+          <tr>
+            <td class="marketLabel"><label for="storedescription">Store Description:</label></td>
+            <td><input type="text" id="storedescription" placeholder="Store Description"></input></td>
+          </tr>
+          <tr>
+            <td class="marketLabel"><label for="amount">Starting Amount in Ether:</label></td>
+            <td><input type="number" id="amount" placeholder="Amount in Ether"></input></td>
+          </tr>
+          <tr>
+            <td class="marketLabel"><label for="imgsrc">Image Source:</label></td>
+            <td><input type="text" id="imgsrc" placeholder="Source"></input></td>
+          </tr>
+  	      <tr>
+            <td class="marketLabel">&nbsp;</td>
+            <td><button class="btn btn-default" type="button" id="createstore" onclick="createStore()">Create store</button></td>
+          </tr>
+        </table>
+        <hr />
+      </div>
+      
+      <div class="col-md-4">
+        <div id="right-column"></div>
+      </div>
+    </div>
+  </div>
+    
+    <div w3-include-html="status.html"></div>
+    <script src="js/includeHTML.js"></script>
+    <script>includeHTML();</script>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/web3.min.js"></script>
+    <script src="js/truffle-contract.min.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/create.js"></script>
+    <script src="js/storecommon.js"></script>
+  </body>
+</html>
