@@ -16,7 +16,7 @@ function createProduct()
     console.log("New Product (account:"+account+", name:"+name+", desc:"+desc+", imgsrc:"+imgsrc+")");
     
     console.log("About to call createProduct on contract...");
-	MarketPlaceContract.createProduct(account, name, desc, imgsrc, {from: account, gas: gaslimit}).then(function(txId) 
+	MarketPlaceContract.createProduct(name, desc, imgsrc, {from: account, gas: gaslimit}).then(function(txId) 
 	{
     console.log("Back from MarketPlace.createProduct...");
 		console.log(txId);

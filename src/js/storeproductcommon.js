@@ -3,7 +3,6 @@ function loadStoresForOwner()
   account = accounts[0];
   setStatus("Stores being fetched...", "warning");
   setInfo("This page maintains the products within stores for currently logged in user.");
-  // setInfo("This page shows the current stores for currently logged in user.");
   showSpinner();
 
   MarketPlaceContract.getStoreCountForOwner.call(account).then(function(count)
@@ -83,16 +82,9 @@ let showStoreProducts = function(ev){
   let oldActive = document.querySelector('.selected');
   (oldActive)?oldActive.classList.remove('selected'):null;
 
-  // highlight the target Element (i.e., just the column)
-  // ev.target.classList.add('selected');
   // highlight target's parentElement (i.e., the whole row)
   ev.target.parentElement.classList.add('selected');
   
-  // let activeStore = storesArray[store_id];
-  // let ul = document.querySelector('.storeProduct-list');
-  // ul.innerHTML = ""; //clear old data
-  // let df = document.createDocumentFragment();
-
   // get logged in user (account)
   account = accounts[0];
   // load the store product list

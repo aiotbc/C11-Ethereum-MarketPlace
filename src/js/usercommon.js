@@ -47,7 +47,7 @@ function register()
   console.log("New Owner (account:"+account+", username:"+username+")");
 
   // call the contract function
-  MarketPlaceContract.register(account, username, {from: account, gas: gaslimit}).then(function(txId) 
+  MarketPlaceContract.register(username, {from: account, gas: gaslimit}).then(function(txId) 
 	{
 		console.log(txId);
     if (txId["receipt"]["gasUsed"] == gaslimit) 

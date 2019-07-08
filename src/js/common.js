@@ -176,25 +176,13 @@ function updateNetworkInfo()
     if (withdrawBalance)
     {
       console.log("getting withdraw balance for account: " + account);
-      MarketPlaceContract.getBalance.call(account).then(function(ownerBal)
+      MarketPlaceContract.balance.call({from: account}).then(function(ownerBal)
       {
-        console.log("withdraw balance is: " + ownerBal);
-        // withdrawBalance.innerHTML = web3.fromWei(ownerBal, "ether") + " ETH";
-        withdrawBalance.innerHTML = ownerBal + " ETH";
+        console.log("withdraw balance is (wei): " + ownerBal);
+        withdrawBalance.innerHTML = web3.fromWei(ownerBal, "ether") + " ETH";
 
       });
     
-      // if (typeof MarketPlaceContract != 'undefined' && typeof account != 'undefined')
-      // {
-      //   web3.eth.getBalance(MarketPlaceContract.address, function(err, bal) 
-      //   {
-      //       console.log("contract balance: " + bal);
-      //   });
-      // }
-      // else
-      // {
-      //     $("#withdrawButton").hide();
-      // }
     }
   
     var network = document.getElementById("network");
@@ -257,7 +245,7 @@ function withdraw()
 {
   if (typeof MarketPlaceContract != 'undefined' && typeof account != 'undefined')
   {
-    setStatus("Withdrawing fund...", "warning");
+    setStatus("Withdrawing funds...", "warning");
     showSpinner();
     
     MarketPlaceContract.withdrawRefund({from:account, gas:500000}).then(function(txId)

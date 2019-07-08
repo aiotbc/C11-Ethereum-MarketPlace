@@ -16,7 +16,7 @@ function createStore()
 	var imgsrc = document.getElementById("imgsrc").value;
   console.log("New Store (account:"+account+", storename:"+storename+", storedescription:"+storedescription+", amount:"+amount+", amountWei:"+amountWei+", imgsrc:"+imgsrc+")");
     
-	MarketPlaceContract.createStore(account, storename, storedescription, amount, imgsrc, {from: account, value:amountWei, gas:500000}).then(function(txId) 
+	MarketPlaceContract.createStore(storename, storedescription, imgsrc, {from: account, value:amountWei, gas:500000}).then(function(txId) 
 	{
 		console.log(txId);
     if (txId["receipt"]["gasUsed"] == 500000) 
@@ -80,14 +80,14 @@ function waitAndRefreshStores(count)
     var res = "";
     for (var j = 0; j < count; j++)
     {
-        var usr = storesArray[j];
+        var store = storesArray[j];
         res = res + "<tr>";
-        res = res + "<td><a href='storeupdate.html?storeId=" + usr[0] + "'>" + usr[0] + "</a></td>";
-        res = res + "<td>" + usr[2] + "</td>";
-        res = res + "<td>" + usr[3] + "</td>";
-        res = res + "<td>" + usr[1] + "</td>";
-        res = res + "<td>" + usr[4] + "</td>";
-        res = res + "<td>" + usr[5] + "</td>";
+        res = res + "<td><a href='storeupdate.html?storeId=" + store[0] + "'>" + store[0] + "</a></td>";
+        res = res + "<td>" + store[2] + "</td>";
+        res = res + "<td>" + store[3] + "</td>";
+        res = res + "<td>" + store[1] + "</td>";
+        res = res + "<td>" + web3.fromWei(store[4], "ether") + "</td>";
+        res = res + "<td>" + store[5] + "</td>";
         res = res + "</tr>";
     }
     storeSection.innerHTML = res;
@@ -114,7 +114,7 @@ function loadStoreToForm()
     storeid.innerHTML       = store[9];
     storename.innerHTML     = store[2];
     storedescription.value  = store[3];
-    amount.innerHTML        = store[4];
+    amount.innerHTML        = web3.fromWei(store[4], "ether");
     imgsrc.value            = store[5];
   });
 
@@ -135,9 +135,8 @@ function updateStore()
   var storeid          = document.getElementById("store.id").innerHTML;
   var storename        = document.getElementById("store.name").innerHTML;
   var storedescription = document.getElementById("store.description").value;
-  var amount           = document.getElementById("store.amount").innerHTML;
   var imgsrc           = document.getElementById("store.imgsrc").value;
-  console.log("Update store (sid:"+storeid+", storename:"+storename+", storedescription:"+storedescription+", amount:"+amount+", imgsrc:"+imgsrc+")");
+  console.log("Update store (sid:"+storeid+", storename:"+storename+", storedescription:"+storedescription+", imgsrc:"+imgsrc+")");
 
   // call the contract function
   MarketPlaceContract.updateStore(storeid, storename, storedescription, imgsrc, {from: account, gas: gaslimit}).then(function(txId) 
@@ -168,10 +167,9 @@ function withdraw()
 
   // gather page fields for contract call
   var sid         = document.getElementById("store.id").innerHTML;
-  // var amount      = web3.toWei(document.getElementById("store.amount").innerHTML);
-  var amount      = document.getElementById("store.amount").innerHTML;
+  var amount      = web3.toWei(document.getElementById("store.amount").innerHTML);
   console.log("Call withdraw (sid:"+sid+", amount:"+amount+")");
-	MarketPlaceContract.withdraw(sid, amount, {from: account, gas: gaslimit}).then(function(txId) 
+	MarketPlaceContract.withdrawStore(sid, amount, {from: account, gas: gaslimit}).then(function(txId) 
 	{
     console.log("Back from MarketPlace.sellProduct...");
 		console.log(txId);

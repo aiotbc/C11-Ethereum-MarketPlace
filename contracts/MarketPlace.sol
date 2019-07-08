@@ -97,9 +97,6 @@ contract MarketPlace is Ownable {       // Using ownable library.
     event userCreated(uint uid, address user, string username, uint8 usertype, uint8 userstatus, uint timestamp);
     event userUpdated(uint uid, string username, uint8 usertype, uint8 userstatus, uint timestamp);
 
-    // event LogDepositMade(address indexed accountAddress, uint amount);
-    // event debug(string text, uint value);
-
     // structure for user
     struct user
     {
@@ -168,16 +165,6 @@ contract MarketPlace is Ownable {       // Using ownable library.
     {
         return createUser(_username, 1, 0);
     }
-
-    // @notice Enroll a customer with the bank, giving the first 3 of them 1 ether for free
-    // @return The balance of the user after enrolling
-    // function enroll() public returns (uint) {
-    //     if (clientCount < 3) {
-    //         clientCount++;
-    //         balances[msg.sender] = 1 ether;
-    //     }
-    //     return balances[msg.sender];
-    // }
 
     function createStore( string memory _name, string memory _description,
      string memory _imgsrc ) public payable returns (uint id)
@@ -411,57 +398,34 @@ contract MarketPlace is Ownable {       // Using ownable library.
 
     function sellProduct(uint sid, uint spid, uint pid, uint qty, uint price) public payable returns (uint) {
         // calculate transaction amount
-        // uint transAmount = qty * storeproducts[spid].price;
         uint transAmount = qty * price;
-        // ensure buyer has sufficient funds
-        // require (balances[msg.sender] >= transAmount, "buyer has insufficient funds");
+        // ensure buyer sent sufficient funds
         require (msg.value >= transAmount, "buyer sent insufficient funds");
         // validate sale and decrease inventory by 1
         dmpExtraContract.validateSellProductExtra(sid, spid);
-        // increase store owner wallet by transaction amount
-        // stores[sid].owner.transfer(transAmount);
+        // increase store owner wallet by transaction (message) value
         balances[stores[sid].owner] += msg.value;
-        // require (balances[msg.sender] >= msg.value, "buyer has insufficient wei funds");
-        // decrease buyers wallet by message value (Wei) - We don't store buyers wallet value (only owner)
-        // balances[msg.sender].sub(msg.value);
-        // increase store amount by transaction amount
-        stores[sid].amount += transAmount;
+        // increase store amount by qty * price (converted to wei)
+        // stores[sid].amount += (transAmount * 10**18);
+        stores[sid].amount += msg.value;
 
         // create the order
         return createOrder(msg.sender, sid, spid, pid, price, qty);
     }
 
-    // function withdraw(uint sid, uint256 amount) public returns (bool success)
-    // {
-    //     // ensure message is from store owner
-    //     require(stores[sid].owner == msg.sender, "must be owner of store");
-    //     // ensure store has requested funds
-    //     require(stores[sid].amount >= amount, "amount greater than store value");
-    //     // require(stores[sid].amount >= amount, convertIntToString(amount));
-    //     // require(stores[sid].amount >= amount, convertIntToString(stores[sid].amount));
-    //     // ensure owner has requested funds
-    //     // require(balances[msg.sender] >= msg.value, "msg.value greater than owner balance");
-    //     require(balances[msg.sender] >= amount, "amount greater than balances[msg.sender]");
-    //     // decrease stores wallet by transaction amount
-    //     stores[sid].amount -= amount;
-    //     // increase callers wallet by transaction amount
-    //     // balances[msg.sender].sub(amount);
-    //     // msg.sender.transfer(msg.value);
-    //     balances[msg.sender] -= amount;
-    //     msg.sender.transfer(amount);
-    //     return true;
-
-    /// @notice Withdraw ether from bank
+    /// @notice Withdraw ether from contract (at this store)
     /// @dev This does not return any excess ether sent to it
     /// @param withdrawAmount amount you want to withdraw
-    /// @return The balance remaining for the user
+    /// @return The balance remaining for the user (overall)
     function withdrawStore(uint sid, uint withdrawAmount) public returns (uint remainingBal) {
-        // // ensure message is from store owner
-        // require(stores[sid].owner == msg.sender, "must be owner of store");
         if (withdrawAmount <= balances[msg.sender]) {
             // decrease stores wallet by transaction amount
+            // stores[sid].amount -= (withdrawAmount * 10**18);
             stores[sid].amount -= withdrawAmount;
-            balances[msg.sender] -= withdrawAmount;
+            // decrease owners wallet by transaction amount
+            // balances[msg.sender] -= (withdrawAmount * 10**18); // convert to wei
+            // msg.sender.transfer((withdrawAmount * 10**18));
+            balances[msg.sender] -= withdrawAmount; // convert to wei
             msg.sender.transfer(withdrawAmount);
         }
         return balances[msg.sender];
@@ -491,42 +455,6 @@ contract MarketPlace is Ownable {       // Using ownable library.
     //     c = _a + _b;
     //     assert(c >= _a);
     //     return c;
-    // }
-
-    // /// @notice Get balance
-    // /// @return The balance of the user
-    // // A SPECIAL KEYWORD prevents function from editing state variables;
-    // // allows function to run locally/off blockchain
-    // function balance() public view returns (uint) {
-    //     /* Get the balance of the sender of this transaction */
-    //     return balances[msg.sender];
-    // }
-
-    // /// @notice Deposit ether into bank
-    // /// @return The balance of the user after the deposit is made
-    // /// Add the appropriate keyword so that this function can receive ether
-    // function deposit() public payable returns (uint) {
-    //     /* Add the amount to the user's balance, call the event associated with a deposit,
-    //       then return the balance of the user */
-    //     balances[msg.sender] += msg.value;
-    //     emit LogDepositMade(msg.sender, msg.value);
-    //     return balances[msg.sender];
-    // }
-
-    // /// @notice Withdraw ether from bank
-    // /// @dev This does not return any excess ether sent to it
-    // /// @param withdrawAmount amount you want to withdraw
-    // /// @return The balance remaining for the user
-    // function withdraw(uint withdrawAmount) public returns (uint remainingBal) {
-    //     /* If the sender's balance is at least the amount they want to withdraw,
-    //        Subtract the amount from the sender's balance, and try to send that amount of ether
-    //        to the user attempting to withdraw. IF the send fails, add the amount back to the user's balance
-    //        return the user's balance.*/
-    //     if (withdrawAmount <= balances[msg.sender]) {
-    //         balances[msg.sender] -= withdrawAmount;
-    //         msg.sender.transfer(withdrawAmount);
-    //     }
-    //     return balances[msg.sender];
     // }
 
     /// @notice Get balance

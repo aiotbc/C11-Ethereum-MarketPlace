@@ -4,64 +4,6 @@ const ether = 10**18; // 1 ether = 1000000000000000000 wei
 const reward = 0 * ether;
 const initialDepositsBalance = 0 * ether;
 
-// contract("MarketPlace - basic initialization", function(accounts) {
-//   const alice = accounts[1];
-
-//   it("should deposit correct amount", async () => {
-//     const marketPlace = await MarketPlace.deployed();
-//     const deposit = 0.2 * ether;
-
-//     await marketPlace.deposit({from: alice, value: web3.utils.toBN(deposit)});
-//     const balance = await marketPlace.balance({from: alice});
-//     assert.equal(balance, reward + deposit, "deposit failed, check deposit method");
-//     const depositsBalance = await marketPlace.depositsBalance();
-//     assert.equal(depositsBalance, initialDepositsBalance+deposit,
-//         "depositsBalance increase failure");
-
-//     const expectedEventResult = {accountAddress: alice, amount: deposit};
-
-//     const log = await new Promise(function (resolve, reject) {
-//       marketPlace.getPastEvents('LogDepositMade', function (error, events) {
-//         resolve(events[0].returnValues);
-//       });
-//     });
-//     assert.equal(log.accountAddress, expectedEventResult.accountAddress,
-//         "LogDepositMade event accountAddress property not emitted");
-//     assert.equal(log.amount, expectedEventResult.amount,
-//         "LogDepositMade event amount property not emitted");
-//   });
-// });
-
-// contract("MarketPlace - withdraw all after deposit", function(accounts) {
-//   const alice = accounts[1];
-
-//   it("should withdraw correct amount", async () => {
-//     const marketPlace = await MarketPlace.deployed();
-//     const deposit = 0.1 * ether;
-
-//     await marketPlace.deposit({from: alice, value: web3.utils.toBN(deposit)});
-//     await marketPlace.withdraw(web3.utils.toBN(deposit), {from: alice});
-
-//     const balance = await marketPlace.balance({from: alice});
-//     assert.equal(balance, deposit - deposit, "withdrawal failed after deposit");
-//   });
-// });
-
-// contract("MarketPlace - withdraw more than balance", function(accounts) {
-//   const alice = accounts[1];
-
-//   it("should keep balance unchanged if withdraw greater than balance", async() => {
-//     const marketPlace = await MarketPlace.deployed();
-//     const deposit = 0.1 * ether;
-
-//     await marketPlace.deposit({from: alice, value: web3.utils.toBN(deposit)});
-//     await marketPlace.withdraw(web3.utils.toBN(deposit * 1.01), {from: alice});
-
-//     const balance = await marketPlace.balance({from: alice});
-//     assert.equal(balance, deposit, "balance not kept intact");
-//   });
-// });
-
 contract("MarketPlace - fallback works", function(accounts) {
   const alice = accounts[1];
 
@@ -189,7 +131,7 @@ contract("MarketPlace - start to finish ecommerce", function(accounts) {
     const marketPlace = await MarketPlace.deployed();
 
     const productCountBefore = (await marketPlace.getProductCount()).toNumber();
-    await marketPlace.createProduct("Product#1","This is Product #2","images/product1.png",{from: bob}); 
+    await marketPlace.createProduct("Product#2","This is Product #2","images/product2.png",{from: bob}); 
     const productCountAfter = (await marketPlace.getProductCount()).toNumber();
     assert.equal(productCountBefore + 1, productCountAfter, "product count did not increase by 1");
     const productId = (await marketPlace.getProductIdForOwner(0, {from: bob})).toNumber();
