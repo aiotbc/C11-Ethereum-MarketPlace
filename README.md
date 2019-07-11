@@ -1,16 +1,21 @@
 # README.md for MarketPlace
 
+This application accompanies the book, 
+[AI, IoT, and Blockchain: Blockchain, IoT and AI: Using the Power of Three to Develop Business, Technical, and Legal Solutions](https://www.amazon.com/Blockchain-IoT-AI-Technical-Solutions/dp/1260457729)
+
 ## What does the MarketPlace do?
 
-MarketPlace is a DApp (decentralized application) that allows store owners to create stores and products and add products to stores and make them for sale to shoppers. When the contract is deployed an initial 'administrator' user is created and set to the address of the deployer. This administrator can update the user type (Admin, Owner) and status of users (Enabled, Disabled). All user access and permissioning is determined by the currently logged in user within the MetaMask plugin. A MetaMask user (except the Admin user) can register as a store owner. Store owners can create one or more stores. Store owners can also create one or more products.  For each store, the store owner can add from their list of products and set the amount of inventory and price for that store. Any other type of user is designated as a Shopper (shoppers logged in to a MetaMask account) for the marketplace. The Shopping menu shows a list of stores and their description. They can then choose a store and see a list of the products available in that store. A Shopper can then choose to purchase a product by clicking on the Buy button within the store. When they purchase a product, an order is created, the store product quantity available is decreased and the Shopper MetaMask wallet is debited by the store price of item purchased. The store owner's account is also credited for the price of the purchased item. In the marketplace contract there are entities and relationship represented by solidity structures. These include users, stores, products, store products and orders.
+MarketPlace is a DApp (decentralized application) that allows store owners to create stores and products and add products to stores and make them for sale to shoppers. 
+
+When the "smart contract" code is deployed an initial 'administrator' user is created and set to the address of the deployer. This administrator can update the user type (Admin, Owner) and status of users (Enabled, Disabled). All user access and permissioning is determined by the currently logged in user within the MetaMask plugin. A MetaMask user (except the Admin user) can register as a store owner. Store owners can create one or more stores. Store owners can also create one or more products.  For each store, the store owner can add from their list of products and set the amount of inventory and price for that store. Any other type of user is designated as a Shopper (shoppers logged in to a MetaMask account) for the marketplace. The Shopping menu shows a list of stores and their description. They can then choose a store and see a list of the products available in that store. A Shopper can then choose to purchase a product by clicking on the Buy button within the store. When they purchase a product, an order is created, the store product quantity available is decreased and the Shopper MetaMask wallet is debited by the store price of item purchased. The store owner's account is also credited for the price of the purchased item. In the marketplace contract there are entities and relationship represented by solidity structures. These include users, stores, products, store products and orders.
 
 ![](doc/storage-entities.png "Storage Entities")
 
-## Part A. How to set up the MarketPlace
+## Part A: How to set up the MarketPlace
 
 MarketPlace is a truffle project that can run on a local development server. The project requires that Truffle is installed. See https://truffleframework.com/docs/truffle/getting-started/installation for details.
 
-### Step 1: Download node modules
+### A.1: Download node modules
 
 Open a command prompt, navigate to the downloaded project and run the following command:
 ```
@@ -20,25 +25,25 @@ $ npm install
 The above command will download all of the node modules that are required by the application. Here is an example output the above command:
 
 ```
-> fsevents@1.2.9 install /Users/pallen/wip-aiotbc/Ch11-MarketPlace-0.5/node_modules/fsevents
+> fsevents@1.2.9 install /.../Ch11-MarketPlace-0.5/node_modules/fsevents
 > node install
 
 node-pre-gyp WARN Using needle for node-pre-gyp https download 
-[fsevents] Success: "/Users/pallen/wip-aiotbc/Ch11-MarketPlace-0.5/node_modules/fsevents/lib/binding/Release/node-v64-darwin-x64/fse.node" is installed via remote
+[fsevents] Success: "/.../Ch11-MarketPlace-0.5/node_modules/fsevents/lib/binding/Release/node-v64-darwin-x64/fse.node" is installed via remote
 npm WARN marketplace@1.0.0 No repository field.
 
 added 417 packages from 566 contributors and audited 3589 packages in 13.499s
 found 0 vulnerabilities
 ```
 
-### Step 2: Compilation
+### A.2: Compilation
 
 Open a command prompt, navigate to the downloaded project and run the following command:
 ```
 $ truffle compile
 ```
 
-### Step 3: Start local blockchain
+### A.3: Start local blockchain
 
 In order to migrate and run the contract, you must first create a local private blockchain network. To do so, open a second command prompt and run the following command:
 
@@ -93,7 +98,7 @@ Gas Limit
 Listening on 127.0.0.1:9545
 ```
 
-### Step 4: Migrate and deploy contract
+### A.4: Migrate and deploy contract
 
 The next step is to migrate the MarketPlace contracts to the local private blockchain listening on port 8545 (see ganache-cli output). Type the following into a command prompt for the root directory of the download:
 ```
@@ -182,7 +187,7 @@ Summary
 > Final cost:          0.17558374 ETH
 ```
 
-### Step 5: Run tests
+### A.5: Run tests
 
 All of the test cases for the MarketPlace are held in the test directory. From a command prompt in the root of the downloaded directory, run the following command:
 
@@ -234,7 +239,7 @@ Compiling your contracts...
   16 passing (2s)
   ```
 
-### Step 6: Start the web application
+### A.6: Start the web application
 
 To do so, open a third command prompt and run the following command:
 
@@ -245,7 +250,7 @@ $ npm run dev
 The above command will create something like the following output:
 
 ```
-> marketplace@1.0.0 dev /Users/pallen/wip-aiotbc/Ch11-MarketPlace-0.5
+> marketplace@1.0.0 dev /.../Ch11-MarketPlace-0.5
 > lite-server
 
 ** browser-sync config **
@@ -278,11 +283,11 @@ Note that the above screen also show the MetaMask plugin prompting for wallet lo
 
 Now that you have the MarketPlace compiled, deployed and running on a local blockchain network, you are now ready to try out the user interface.
 
-### Establishing MetaMask
+### B.1 Establishing MetaMask
 
 In order to use the MarketPlace you will need to install and set up the MetaMask browser plugin. MetaMask will be used to select accounts from the list of the ten (10) accounts that are automatically generated in the local blockchain network. These accounts will be used in the sections below to represent an Administrators, Store Owners and Shoppers. To start with, open the MetaMask browser plugin and, if necessary, log out of any current wallet before proceeding to the restore from wallet seed function.
 
-#### Restore MetaMask from Wallet Seed
+### B.2 Restore MetaMask from Wallet Seed
 
 Open the MetaMask plugin and click link that says ```Import using account seed phrase```. This will open the plugin home page for MetaMask, again click on the ```Import using account seed phrase``` link. This will open the Restore your Account with Seed Phrase page. Enter in the mnemonic that was output from ganache-cli in Step 3 above (in example above this phrase is: ```match test sustain destroy type coin coconut modify demand spike tilt motor```). Enter the New Password and Confirm Password fields and click Restore button. 
 
@@ -290,7 +295,7 @@ Open the MetaMask plugin and click link that says ```Import using account seed p
 
 Once you've restored the wallet, make sure you are still pointing to the local network by clicking on the dropdown labeled "Private Network" and re-selecting Localhost 8545.
 
-#### Setup MetaMask accounts
+### B.3 Setup MetaMask accounts
 
 Once you've restored from the Wallet Seed in prior step, you will have a single account set up (named Account 1 by default) that uses the 1st address of the ten (10) accounts set up by ganache-cli in Step 3 above. Now you go ahead and create three (3) more accounts (for a total of 4). Each time that you click on Create Account within the MetaMask plugin, it will create an account and associate it with the next available account within the list of ten (10) known accounts.
 

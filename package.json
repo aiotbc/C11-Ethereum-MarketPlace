@@ -1,7 +1,7 @@
 {
   "name": "marketplace",
   "version": "1.0.0",
-  "description": "## What does the MarketPlace do?",
+  "description": "Decentralized MarketPlace (using Truffle and Ethereum)",
   "main": "truffle.js",
   "directories": {
     "doc": "doc",
