@@ -25,11 +25,11 @@ $ npm install
 The above command will download all of the node modules that are required by the application. Here is an example output the above command:
 
 ```
-> fsevents@1.2.9 install /.../Ch11-MarketPlace-0.5/node_modules/fsevents
+> fsevents@1.2.9 install /.../C11-Ethereum-MarketPlace/node_modules/fsevents
 > node install
 
 node-pre-gyp WARN Using needle for node-pre-gyp https download 
-[fsevents] Success: "/.../Ch11-MarketPlace-0.5/node_modules/fsevents/lib/binding/Release/node-v64-darwin-x64/fse.node" is installed via remote
+[fsevents] Success: "/.../C11-Ethereum-MarketPlace/node_modules/fsevents/lib/binding/Release/node-v64-darwin-x64/fse.node" is installed via remote
 npm WARN marketplace@1.0.0 No repository field.
 
 added 417 packages from 566 contributors and audited 3589 packages in 13.499s
@@ -250,7 +250,7 @@ $ npm run dev
 The above command will create something like the following output:
 
 ```
-> marketplace@1.0.0 dev /.../Ch11-MarketPlace-0.5
+> marketplace@1.0.0 dev /.../C11-Ethereum-MarketPlace
 > lite-server
 
 ** browser-sync config **
