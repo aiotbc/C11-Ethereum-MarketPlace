@@ -1,7 +1,7 @@
 # README.md for MarketPlace
 
 This application accompanies the book, 
-[AI, IoT, and Blockchain: Blockchain, IoT and AI: Using the Power of Three to Develop Business, Technical, and Legal Solutions](https://www.amazon.com/Blockchain-IoT-AI-Technical-Solutions/dp/1260457729)
+[AI, IoT and the Blockchain: Using the Power of Three to create Business, Legal and Technical Solutions](https://www.amazon.com/AI-IoT-Blockchain-Technical-Solutions-ebook/dp/B081TMHN5D)
 
 ## What does the MarketPlace do?
 
